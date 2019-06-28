@@ -1,0 +1,131 @@
+<!-- # templates/results.html -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+    .container{
+        -webkit-print-color-adjust: exact; 
+    }
+</style>
+<div class="container">
+    {% for result in results %}
+        <div class="row" style="padding: 15px">
+            <div class="row">
+                <figure>
+                    <img class="fig" style="width:500px;" src="{{ result['image_url'] }}">
+                    <figcaption>
+                        {{result['name']}}
+                    </figcaption>
+                </figure>
+                
+            </div>
+            <div class="row">
+                <!-- <p>Dominant Color</p>
+                <figure>
+                    <img class="fig" src="{{result['colors'][0]['path']}}">
+                    <figcaption>
+                        <p>
+                            RGB: {{result['colors'][0]['rgb']}}
+                        </p>
+                        <p>
+                            HSL: {{result['colors'][0]['hsl']}}
+                            {{result['colors'][0]['s_tag']}}, {{result['colors'][0]['l_tag']}}
+                        </p>
+						<p>
+						{% if result['colors'][0]['pixel_percent'] %}
+							Percentage: {{result['colors'][0]['pixel_percent']}}
+						{% endif %}
+						</p>
+                    </figcaption>
+                </figure> -->
+                {% if result['colors'] %}
+                    <p>Color Palette</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    RGB
+                                </th>
+                                <th>
+                                    HSL
+                                </th>
+                                <th>
+                                    Pixel Percent
+                                </th>
+                                <th>
+                                    Color
+                                </th>
+                                <th>
+                                    Saturation
+                                </th>
+                                <th>
+                                    Lightness
+                                </th>
+                                <th>
+                                    Tone
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for color in result['colors'] %}
+                                <tr>
+                                    <td>
+                                        {{color['rgb']}}
+                                    </td>
+                                    <td>
+                                        {{color['hsl']}}
+                                    </td>
+                                    
+                                    <td>
+                                        {% if color['pixel_percent'] %}
+										    {{color['pixel_percent']}}
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        <img src="{{color['path']}}">
+                                    </td>
+                                    <td>
+                                        {{color.s_tag}}
+                                    </td>
+                                    <td>
+                                        {{color.l_tag}}
+                                    </td>
+                                    <td>
+                                        {{color.tone}}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- <ul>
+                        {% for color in result['colors'][1:] %}
+                            <li style="display: inline-block ;list-style-type: none">
+                                <img class="fig" src="{{color['path']}}">
+                                <figcaption>
+                                    <p>
+                                        RGB: {{color['rgb']}}
+                                    </p>
+                                    <p>
+                                        HSL: {{color['hsl']}}
+                                        {{color['s_tag']}}, {{color['l_tag']}}
+                                    </p>
+									<p>
+										{% if color['pixel_percent'] %}
+											Percentage: {{color['pixel_percent']}}
+										{% endif %}
+									</p>
+                             
+                                </figcaption>
+                            </li>
+                            
+                        {% endfor %}
+                    </ul> -->
+                {% endif %}
+            </div>
+        </div>
+       
+    {% endfor %}
+</div>
